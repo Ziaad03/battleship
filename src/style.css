@@ -1,0 +1,72 @@
+/* style.css */
+
+/* Add your CSS styles here */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Add more styles as needed */
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 10px;
+  justify-items: center;
+  align-items: center;
+}
+
+.player-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 1px;
+}
+
+.cells {
+  border: 1px solid;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+.cells:hover {
+  background-color: #665e5e;
+}
+.ship {
+  background-color: #3e4640; /* Grey for ships */
+}
+
+.hit {
+  background-color: #f00; /* Red for hits */
+}
+
+.miss {
+  background-color: #0f0; /* Green for misses */
+}
+
+.empty {
+  background-color: #dad2d2; /* White for empty cells */
+}
