@@ -10,7 +10,7 @@ export class Player {
 
   // Method to fire a shot on the enemy game board
   fireShot(row, col, enemyGameBoard) {
-    enemyGameBoard.receiveAttack(row, col);
+    return enemyGameBoard.receiveAttack(row, col);
   }
   // Method to place a ship on the player's game board
   playerPlaceShip(ship, row, col, orientation) {

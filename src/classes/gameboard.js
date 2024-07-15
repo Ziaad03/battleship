@@ -62,8 +62,10 @@ export class GameBoard {
     if (this.board[row][col] === null) {
       this.missedAttacks.push([row, col]);
       this.board[row][col] = "miss";
-      return false;
+      return true;
     } else if (this.board[row][col] === "hit") {
+      return false;
+    } else if (this.board[row][col] === "miss") {
       return false;
     } else {
       const ship = this.board[row][col];

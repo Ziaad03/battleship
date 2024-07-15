@@ -1,4 +1,36 @@
 import Ship from "../classes/ship";
+import style from "../style.css";
+export function displayGame() {
+  let Title = document.createElement("h1");
+  Title.textContent = "Battleship";
+  document.body.appendChild(Title);
+  let gameContainer = document.createElement("div");
+  gameContainer.id = "game-board";
+  document.body.appendChild(gameContainer);
+  let playerBoard1 = document.createElement("div");
+  playerBoard1.classList.add("player-board");
+  let playerBoard2 = document.createElement("div");
+  playerBoard2.classList.add("player-board");
+
+  gameContainer.appendChild(playerBoard1);
+  gameContainer.appendChild(playerBoard2);
+
+  let player1Title = document.createElement("h2");
+  player1Title.textContent = "Player 1's Board";
+  let player2Title = document.createElement("h2");
+  player2Title.textContent = "Player 2's Board";
+  playerBoard1.appendChild(player1Title);
+  playerBoard2.appendChild(player2Title);
+
+  let player1Board = document.createElement("div");
+  player1Board.id = "player-1-board";
+  player1Board.classList.add("board");
+  playerBoard1.appendChild(player1Board);
+  let player2Board = document.createElement("div");
+  player2Board.id = "player-2-board";
+  player2Board.classList.add("board");
+  playerBoard2.appendChild(player2Board);
+}
 
 export function renderPlayer1GameBoard(player) {
   // Get the game board element from the HTML
@@ -6,7 +38,7 @@ export function renderPlayer1GameBoard(player) {
 
   // Clear the existing content of the game board
   gameBoardElement.innerHTML = "";
-  console.log(player);
+
   let gameBoard = player.getBoard();
 
   // Loop through each row and column of the player's game board
@@ -53,7 +85,6 @@ export function renderPlayer2GameBoard(player) {
 
       // Set the class of the cell element based on the value in the game board
       if (gameBoard[row][col] instanceof Ship) {
-        cellElement.className = "ship";
       } else if (gameBoard[row][col] === "hit") {
         cellElement.className = "hit";
       } else if (gameBoard[row][col] === "miss") {
@@ -69,4 +100,4 @@ export function renderPlayer2GameBoard(player) {
   }
 }
 
-export default { renderPlayer1GameBoard, renderPlayer2GameBoard };
+export default { renderPlayer1GameBoard, renderPlayer2GameBoard, displayGame };

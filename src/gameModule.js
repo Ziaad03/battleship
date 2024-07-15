@@ -3,6 +3,7 @@ import Ship from "./classes/ship";
 import {
   renderPlayer1GameBoard,
   renderPlayer2GameBoard,
+  displayGame,
 } from "./utils/domManger";
 
 // create players
@@ -38,45 +39,68 @@ function init() {
 
 // Function to handle player's turn
 function playerHit(player, enemyBoard, row, col) {
-  player.fireShot(row, col, enemyBoard);
+  let result = player.fireShot(row, col, enemyBoard);
   renderPlayer1GameBoard(player1);
   renderPlayer2GameBoard(player2);
+  return result;
 }
 
 function startGame() {
   // Initialize game
+  displayGame();
   console.log("Game started");
   init();
   let player1Turn = true;
+  let gameOver = false;
 
   // Get the parent elements of the game boards
   const player1Board = document.getElementById("player-1-board");
   const player2Board = document.getElementById("player-2-board");
 
-  if (player1Board) {
-    player1Board.addEventListener("click", (event) => {
-      const row = parseInt(event.target.dataset.row);
-      const col = parseInt(event.target.dataset.col);
+  // Computer turn
+  function computerTurn() {
+    if (!player1Turn) {
+      let randomRow = Math.floor(Math.random() * 10);
+      let randomCol = Math.floor(Math.random() * 10);
+      let result = playerHit(player2, player1.gameBoard, randomRow, randomCol);
+      while (result === false) {
+        randomRow = Math.floor(Math.random() * 10);
+        randomCol = Math.floor(Math.random() * 10);
+        result = playerHit(player2, player1.gameBoard, randomRow, randomCol);
+      }
 
-      if (!player1Turn) {
-        playerHit(player2, player1.gameBoard, row, col);
+      if (player1.gameBoard.allShipsSunk()) {
+        gameOver = true;
+        console.log("Computer wins!");
+      } else {
         player1Turn = true;
       }
-    });
-  } else {
-    console.error("Player 1 board not found");
+    }
   }
 
-  if (player2Board) {
-    player2Board.addEventListener("click", (event) => {
-      const row = parseInt(event.target.dataset.row);
-      const col = parseInt(event.target.dataset.col);
-
-      if (player1Turn) {
-        playerHit(player1, player2.gameBoard, row, col);
-        player1Turn = false;
+  // Player turn
+  function playerTurn(event) {
+    if (player1Turn && !gameOver) {
+      let row = parseInt(event.target.dataset.row);
+      let col = parseInt(event.target.dataset.col);
+      let result = playerHit(player1, player2.gameBoard, row, col);
+      if (result === false) {
+        console.log("Invalid move! Try again.");
+        return;
       }
-    });
+      if (player2.gameBoard.allShipsSunk()) {
+        gameOver = true;
+        console.log("Player 1 wins!");
+      } else {
+        player1Turn = false;
+        setTimeout(computerTurn, 500); // Delay computer turn for better UX
+      }
+    }
+  }
+
+  // Attach event listener to player 2's board for player 1's turn
+  if (player2Board) {
+    player2Board.addEventListener("click", playerTurn);
   } else {
     console.error("Player 2 board not found");
   }

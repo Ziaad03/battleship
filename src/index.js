@@ -1,4 +1,3 @@
-import style from "./style.css";
-import startGame from "./gameModule";
+import gameMenu from "./gameMenu";
 
-startGame();
+gameMenu();
