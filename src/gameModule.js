@@ -10,27 +10,79 @@ import {
 const player1 = new Player("Player 1");
 const player2 = new Player("Player 2");
 // Create gameboard
-function init() {
+function init(shipsData) {
   // Create ships
-  const ship1 = new Ship(5);
-  const ship2 = new Ship(4);
-  const ship3 = new Ship(3);
-  const ship4 = new Ship(3);
-  const ship5 = new Ship(2);
+  let ship1Data = shipsData[0];
+  let ship2Data = shipsData[1];
+  let ship3Data = shipsData[2];
+  let ship4Data = shipsData[3];
+  let ship5Data = shipsData[4];
+
+  let ship1Width = ship1Data.width;
+  let ship2Width = ship2Data.width;
+  let ship3Width = ship3Data.width;
+  let ship4Width = ship4Data.width;
+  let ship5Width = ship5Data.width;
+
+  let ship1 = new Ship(ship1Width);
+  let ship2 = new Ship(ship2Width);
+  let ship3 = new Ship(ship3Width);
+  let ship4 = new Ship(ship4Width);
+  let ship5 = new Ship(ship5Width);
 
   // Add ships to player 1 gameboard
-  player1.playerPlaceShip(ship1, 0, 0, "horizontal");
-  player1.playerPlaceShip(ship2, 1, 0, "horizontal");
-  player1.playerPlaceShip(ship3, 2, 0, "horizontal");
-  player1.playerPlaceShip(ship4, 3, 0, "horizontal");
-  player1.playerPlaceShip(ship5, 4, 0, "horizontal");
+  let ship1Row = Number(ship1Data.row);
+  let ship1Col = Number(ship1Data.col);
+  let ship2Row = Number(ship2Data.row);
+  let ship2Col = Number(ship2Data.col);
+  let ship3Row = Number(ship3Data.row);
+  let ship3Col = Number(ship3Data.col);
+  let ship4Row = Number(ship4Data.row);
+  let ship4Col = Number(ship4Data.col);
+  let ship5Row = Number(ship5Data.row);
+  let ship5Col = Number(ship5Data.col);
 
-  // Add ships to player 2 gameboard
-  player2.playerPlaceShip(ship1, 0, 4, "vertical");
-  player2.playerPlaceShip(ship2, 1, 2, "vertical");
-  player2.playerPlaceShip(ship3, 2, 3, "vertical");
-  player2.playerPlaceShip(ship4, 3, 7, "vertical");
-  player2.playerPlaceShip(ship5, 4, 9, "vertical");
+  player1.playerPlaceShip(ship1, ship1Row, ship1Col, "horizontal");
+  player1.playerPlaceShip(ship2, ship2Row, ship2Col, "horizontal");
+  player1.playerPlaceShip(ship3, ship3Row, ship3Col, "horizontal");
+  player1.playerPlaceShip(ship4, ship4Row, ship4Col, "horizontal");
+  player1.playerPlaceShip(ship5, ship5Row, ship5Col, "horizontal");
+
+  // Add ships to player 2 gameboard and use  random numbers every time
+  function getRandomOrientation() {
+    return Math.random() < 0.5 ? "horizontal" : "vertical";
+  }
+
+  player2.playerPlaceShip(
+    ship1,
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+    getRandomOrientation()
+  );
+  player2.playerPlaceShip(
+    ship2,
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+    getRandomOrientation()
+  );
+  player2.playerPlaceShip(
+    ship3,
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+    getRandomOrientation()
+  );
+  player2.playerPlaceShip(
+    ship4,
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+    getRandomOrientation()
+  );
+  player2.playerPlaceShip(
+    ship5,
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+    getRandomOrientation()
+  );
 
   // Render game boards
   renderPlayer1GameBoard(player1);
@@ -45,11 +97,11 @@ function playerHit(player, enemyBoard, row, col) {
   return result;
 }
 
-function startGame() {
+function startGame(shipsData) {
   // Initialize game
   displayGame();
   console.log("Game started");
-  init();
+  init(shipsData);
   let player1Turn = true;
   let gameOver = false;
 

@@ -1,6 +1,7 @@
 import Ship from "../classes/ship";
-import style from "../style.css";
+import "../style/style.css";
 export function displayGame() {
+  document.body.innerHTML = "";
   let Title = document.createElement("h1");
   Title.textContent = "Battleship";
   document.body.appendChild(Title);
