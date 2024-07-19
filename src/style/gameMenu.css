@@ -5,16 +5,36 @@ body {
 }
 
 #game-menu-container {
-  margin-top: 100px;
+  margin-top: 60px;
   padding: 20px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f1f1f1;
   gap: 20px;
+  box-shadow: 20px 20px 5px 10px rgba(0, 0, 0, 0.75);
 }
 
 #grid-container {
   padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 0.5fr 1.5fr;
+}
+
+#grid-title {
+  font-size: 24px;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: -1;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+#ships-div {
+  padding: 10px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

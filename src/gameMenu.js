@@ -1,7 +1,20 @@
 import startGame from "./gameModule";
 import "./style/gameMenu.css";
+import background from "./images/background.jpeg";
+import shipIcon from "./images/ship-icon.png";
 
 export function gameMenu() {
+  // add background image to the body
+  let backgroundImage = document.createElement("img");
+  backgroundImage.src = background;
+  backgroundImage.style.width = "100%";
+  backgroundImage.style.height = "100vh";
+  backgroundImage.style.position = "fixed";
+  backgroundImage.style.top = "0";
+  backgroundImage.style.left = "0";
+  backgroundImage.style.zIndex = "-1";
+  document.body.appendChild(backgroundImage);
+
   // add a button to start game
   let startButton = document.createElement("button");
   startButton.textContent = "Start Game";
@@ -25,17 +38,64 @@ export function gameMenu() {
   div.style.justifyContent = "center";
   div.style.alignItems = "center";
 
+  // make battleship title
+  let divTitle = document.createElement("div");
+  let title = document.createElement("h1");
+  title.textContent = "Welcome to Battleship!";
+  title.style.fontSize = "32px";
+  title.style.fontWeight = "bold";
+
+  divTitle.style.width = "90%";
+  // center elemnts
+  divTitle.style.display = "flex";
+  divTitle.style.justifyContent = "center";
+  divTitle.style.alignItems = "center";
+  // leav top and bottom border
+  divTitle.style.borderTop = "3px solid black";
+  divTitle.style.borderBottom = "3px solid black";
+  divTitle.style.display = "flex";
+  divTitle.style.justifyContent = "center";
+  divTitle.style.alignItems = "center";
+
+  // create a div for the title icons
+  let titleIconsDiv = document.createElement("div");
+  // style the title icons div
+  titleIconsDiv.style.display = "flex";
+  titleIconsDiv.style.alignItems = "center";
+  // create the ship icon
+  let shipIconImg = document.createElement("img");
+  shipIconImg.src = shipIcon;
+  shipIconImg.style.width = "40px";
+  shipIconImg.style.height = "40px";
+
+  let shipIconImg2 = document.createElement("img");
+  shipIconImg2.src = shipIcon;
+  shipIconImg2.style.width = "40px";
+  shipIconImg2.style.height = "40px";
+  // append the ship icon to the title icons div
+  titleIconsDiv.appendChild(shipIconImg);
+  // append the title icons div to the div title
+  divTitle.appendChild(shipIconImg);
+  divTitle.appendChild(title);
+  divTitle.appendChild(shipIconImg2);
+
+  div.appendChild(divTitle);
+
   // create a div for the grid container
   let gridContainer = document.createElement("div");
   gridContainer.id = "grid-container";
   // style the grid container
-  gridContainer.style.display = "flex";
-  gridContainer.style.justifyContent = "center";
-  gridContainer.style.alignItems = "center";
-  gridContainer.style.border = "1px solid black";
-  gridContainer.style.width = "600px";
-  gridContainer.style.height = "600px";
 
+  gridContainer.style.width = "800px";
+  gridContainer.style.height = "500px";
+  gridContainer.style.padding = "20px";
+
+  let gridTitle = document.createElement("div");
+  gridTitle.style.fontSize = "24px";
+  gridTitle.style.fontWeight = "bold";
+  gridTitle.id = "grid-title";
+  gridTitle.textContent = "Place your ships";
+  gridContainer.appendChild(gridTitle);
   // create a div for the grid
   let grid = document.createElement("div");
   grid.id = "grid";
@@ -80,6 +140,7 @@ export function gameMenu() {
 
   // create a div for the ships
   let shipsDiv = document.createElement("div");
+  shipsDiv.id = "ships-div";
   // style the ships div
   shipsDiv.style.marginLeft = "20px";
 
